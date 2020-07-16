@@ -1,24 +1,27 @@
-
+import utils
+import re
 
 def phanbiet(dict_input: dict) -> int:
-    """Phân biệt cái gì đó ahihi, mọi người sửa lại dòng này cho đúng nhé.
-
-    Arguments:
-        inp_str {dict} -- dict chứa 3 thông tin sau:
-            id              : id của bài đăng
-            content         : content của bài đăng
-            realestate_type : loại bất động sản
-    Returns:
-        int - realestate_type mới của bài đăng
+    
+    """Phân biệt các post Nhà trọ hoặc dãy nhà trọ hoặc dãy trọ (realestate_type = 7).
+    BĐS có mục đích bán.
     """
-
     realestate_type = dict_input['realestate_type']
+    content = dict_input['content']
 
-    ## code goes here
+    if (realestate_type == 7):
+        new_content = remove_accents(content)
+       
+        # Post chứa các keyword:
+        # dãy trọ, nhà trọ, dãy nhà trọ, dãy phòng trọ
 
+        regex_daytro = "day (nha |phong )?tro|nha tro"
+        result_daytro= re.search(regex_daytro, new_content)
 
-    ############################
-    ## Return
-    ############################
+        # Nếu không có keyword thì không thuộc type 7, trả về -1
+        if (result_daytro is None):
+            realestate_type = -1
+        else:
+            realestate_type = 7
+
     return realestate_type
-
