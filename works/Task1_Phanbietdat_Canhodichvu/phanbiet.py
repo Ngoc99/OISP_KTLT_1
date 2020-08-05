@@ -15,8 +15,21 @@ def phanbiet(dict_input: dict) -> int:
     realestate_type = dict_input['realestate_type']
 
     ## code goes here
+    realestate_type = dict_input['realestate_type']
+    content = dict_input['content']
+    if (realestate_type == 3):
+        # remove Vietnameses accent from content using built-in function
+        new_content = remove_accents(content)
 
+        # find all the post that has such keyword by using regex rules
+        regex_rule = "can\s+ho\s+dich\s+vu|chdv"
+        
+        result = re.search(regex_rule, new_content)
 
+        if (result is not None):
+            realestate_type = 2
+        else:
+            realestate_type = 3
     ############################
     ## Return
     ############################
